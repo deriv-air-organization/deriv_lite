@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:deriv_lite/common/exceptions/api_exceptions.dart';
 import 'package:deriv_lite/common/models/tick_modal.dart';
 import 'package:web_socket_channel/io.dart';
 
@@ -76,9 +74,8 @@ class ApiConnection {
   }
 
   void onClose() {
-    _streamController.addError(ApiDisconnectException(
-        message:
-            'Socket is disconnected. Will try again in about ${5} seconds'));
+    _streamController.addError(Exception(
+        'Socket is disconnected. Will try again in about ${5} seconds'));
     // Try to reconnect after a set time
     // Change this to a back-off pattern
     Future.delayed(Duration(seconds: 5), connectToSocket);

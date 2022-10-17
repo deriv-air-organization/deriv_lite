@@ -14,3 +14,34 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Installation
+
+- Install flutter from here https://docs.flutter.dev/get-started/install
+
+## Add flutter to your path
+
+```sh
+export PATH="$PATH:`pwd`/flutter/bin"
+```
+
+## Install packages
+
+```sh
+flutter pub get
+```
+
+## Start the app
+
+```sh
+flutter run
+```
+
+## Folder structure
+
+lib >
+main.dart
+
+## Api's
+
+All the api connections are done under lib > common > repository

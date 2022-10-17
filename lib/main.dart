@@ -2,7 +2,10 @@ import 'package:deriv_lite/login_page.dart';
 import 'package:deriv_lite/transaction.dart';
 import 'package:flutter/material.dart';
 
+import 'common/repository/api_for_price.dart';
+
 void main() {
+  initStream();
   runApp(const MyApp());
 }
 

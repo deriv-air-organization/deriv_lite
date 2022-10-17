@@ -3,8 +3,8 @@ import 'package:deriv_lite/home/components/trade_type_row.dart';
 import 'package:deriv_lite/transaction.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'common/models/symbol_model.dart';
-import 'common/repository/symbols_repo.dart';
+import '../common/models/symbol_model.dart';
+import '../common/repository/symbols_repo.dart';
 
 class DerivHome extends StatefulWidget {
   const DerivHome({Key? key}) : super(key: key);

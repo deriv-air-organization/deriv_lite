@@ -1,4 +1,4 @@
-import 'package:deriv_lite/home_page.dart';
+import 'package:deriv_lite/home/home_page.dart';
 import 'package:deriv_lite/main.dart';
 import 'package:flutter/material.dart';
 
@@ -33,24 +33,23 @@ class LoginPage extends StatelessWidget {
             ),
 
             //email
-            Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'EMAIL',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    TextField(
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
+            const Text(
+              'EMAIL',
+              style: TextStyle(color: Colors.white),
+            ),
+            const TextField(
+              decoration: InputDecoration(
+                focusColor: Colors.white,
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white)),
+              ),
+              style: TextStyle(color: Colors.white),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
 
             //password
             const Text(
@@ -59,11 +58,13 @@ class LoginPage extends StatelessWidget {
             ),
             const TextField(
               decoration: InputDecoration(
+                focusColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder:
-                    OutlineInputBorder(borderSide: BorderSide(width: 5)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white)),
               ),
+              style: TextStyle(color: Colors.white),
             ),
             const SizedBox(
               height: 16,
