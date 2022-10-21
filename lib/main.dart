@@ -1,5 +1,7 @@
 import 'package:deriv_lite/login_page.dart';
-import 'package:deriv_lite/transaction.dart';
+import 'package:deriv_lite/home/components/transaction.dart';
+import 'package:deriv_lite/tabs_page.dart';
+import 'package:deriv_lite/theme.dart';
 import 'package:flutter/material.dart';
 
 import 'common/repository/api_for_price.dart';
@@ -17,10 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'DTrader Lite',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: const LoginPage(),
+      theme: CustomTheme.light,
+      home: const TabsPage(),
     );
   }
 }

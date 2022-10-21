@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:deriv_lite/common/models/symbol_model.dart';
 
 class TradeTypeList extends StatelessWidget {
-  List<Symbol> symbols;
-  TradeTypeList({
+  final List<Symbol> symbols;
+  const TradeTypeList({
+    Key? key,
     required this.symbols,
-  });
-  String selectedsymbol = '';
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +20,12 @@ class TradeTypeList extends StatelessWidget {
                 title: e.displayName,
                 onPressed: () {
                   showModalBottomSheet(
-                      context: context,
-                      builder: (context) => PurchaseContract(
-                            displayName: e.displayName,
-                            selectedsymbol: e.symbol,
-                          ));
-
-                  //Navigator.of(context).push(
-                  //  MaterialPageRoute(
-                  //    builder: (),
-                  //  ),
-                  //);
+                    context: context,
+                    builder: (context) => PurchaseContract(
+                      displayName: e.displayName,
+                      selectedsymbol: e.symbol,
+                    ),
+                  );
                 },
               ))
           .toList(),

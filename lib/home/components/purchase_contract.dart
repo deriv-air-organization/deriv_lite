@@ -1,99 +1,124 @@
+import 'dart:convert';
 import 'package:deriv_lite/home/components/price.dart';
-import 'package:deriv_lite/home/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class PurchaseContract extends StatelessWidget {
+import '../../common/repository/api_for_price.dart';
+
+class PurchaseContract extends StatefulWidget {
   final String selectedsymbol;
   final String displayName;
-  PurchaseContract({
+
+  const PurchaseContract({
+    Key? key,
     required this.selectedsymbol,
     required this.displayName,
-  });
+  }) : super(key: key);
+
+  @override
+  State<PurchaseContract> createState() => _PurchaseContractState();
+}
+
+class _PurchaseContractState extends State<PurchaseContract> {
+  String buyProposalId = '';
+  String sellProposalId = '';
+  double amount = 10.0;
+  TextEditingController amountController = TextEditingController(text: "10");
+  void createProposal(bool isBuy) {
+    final proposal = {
+      "proposal": 1,
+      "amount": amount,
+      "barrier": "+0.1",
+      "basis": "payout",
+      "contract_type": isBuy ? 'CALL' : 'PUT',
+      "currency": "USD",
+      "duration": 60,
+      "duration_unit": "s",
+      "symbol": widget.selectedsymbol
+    };
+    sendRequest(proposal);
+  }
+
+  @override
+  void initState() {
+    broadCastController.stream.listen((message) {
+      final decodedString = jsonDecode(message);
+      if (decodedString['msg_type'] != "proposal") {
+        return;
+      }
+
+      setState(() {
+        if (decodedString['echo_req']['contract_type'] == 'PUT') {
+          sellProposalId = decodedString['proposal']['id'];
+        }
+        if (decodedString['echo_req']['contract_type'] == 'CALL') {
+          buyProposalId = decodedString['proposal']['id'];
+        }
+      });
+    });
+    createProposal(true);
+    createProposal(false);
+    super.initState();
+  }
+
+  void resetProposals() {
+    setState(() {
+      buyProposalId = '';
+      sellProposalId = '';
+    });
+    createProposal(true);
+    createProposal(false);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
-        //appBar: AppBar(
-        //  automaticallyImplyLeading: false,
-        //  leading: IconButton(
-        //    onPressed: () {
-        //      Navigator.of(context).pop();
-        //    },
-        //    icon: const Icon(Icons.arrow_back_ios),
-        //  ),
-        //  actions: [
-        //    IconButton(
-        //      onPressed: () {
-        //        Navigator.of(context).push(
-        //            MaterialPageRoute(builder: ((context) => DerivHome())));
-        //      },
-        //      icon: const Icon(Icons.money_off_csred_rounded),
-        //    )
-        //  ],
-        //),
-        body: Container(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 20, left: 6),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 6),
-                    child: Text(
-                      displayName,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          color: Color.fromARGB(255, 209, 201, 201)),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 6, top: 6),
-                    child: PriceComponent(
-                      symbol: selectedsymbol,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 241, 246, 242),
-                      ),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 6, top: 8),
-                    child: Text(
-                      "+0.66%",
-                      style: TextStyle(fontSize: 16, color: Colors.green),
-                    ),
-                  ),
-                ],
+        backgroundColor: Colors.black87,
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Text(
+                widget.displayName,
+                style: const TextStyle(
+                    fontSize: 16, color: Color.fromARGB(255, 209, 201, 201)),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 10),
-            ),
-            Image.asset(
-              'assets/images/chart_area.png',
-              height: 150,
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 10),
-            ),
-            const Text(
-              'Amount',
-              style: TextStyle(color: Colors.white),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 10),
-            ),
-            const SizedBox(
-              width: 50,
-              height: 50,
-              child: TextField(
-                decoration: InputDecoration(
+              const SizedBox(height: 8),
+              PriceComponent(
+                symbol: widget.selectedsymbol,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 241, 246, 242),
+                ),
+              ),
+              const Text(
+                "+0.66%",
+                style: TextStyle(fontSize: 16, color: Colors.green),
+              ),
+              const SizedBox(height: 8),
+              const Padding(
+                padding: EdgeInsets.only(top: 10),
+              ),
+              TextField(
+                controller: amountController,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,1}'))
+                ],
+                onChanged: (String newvalue) {
+                  final value = double.tryParse(newvalue);
+                  if (value == null) {
+                    return;
+                  }
+                  setState(() {
+                    amount = value;
+                  });
+                  resetProposals();
+                },
+                decoration: const InputDecoration(
                   focusColor: Colors.white,
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey)),
@@ -102,36 +127,38 @@ class PurchaseContract extends StatelessWidget {
                 ),
                 style: TextStyle(color: Colors.white),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 20),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                MaterialButton(
-                  onPressed: () {},
-                  child: const Text('BUY'),
-                  color: Colors.green,
-                  textColor: Colors.white,
-                  minWidth: 150,
-                  height: 56,
-                ),
-                MaterialButton(
-                  onPressed: () {},
-                  child: const Text('SELL'),
-                  color: Colors.red,
-                  textColor: Colors.white,
-                  minWidth: 150,
-                  height: 56,
-                ),
-              ],
-            )
-          ],
-        )));
+              const Padding(
+                padding: EdgeInsets.only(top: 20),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  if (buyProposalId.isNotEmpty)
+                    MaterialButton(
+                      onPressed: () {
+                        sendRequest({"buy": buyProposalId, "price": 100});
+                      },
+                      color: Colors.green,
+                      textColor: Colors.white,
+                      minWidth: 150,
+                      height: 56,
+                      child: const Text('BUY'),
+                    ),
+                  if (sellProposalId.isNotEmpty)
+                    MaterialButton(
+                      onPressed: () {
+                        sendRequest({"buy": sellProposalId, "price": 100});
+                      },
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      minWidth: 150,
+                      height: 56,
+                      child: const Text('SELL'),
+                    ),
+                ],
+              )
+            ],
+          ),
+        ));
   }
 }
-
-// 1. Authorize with token when websocket is open
-// 2. Create 2 proposals when bottom sheet is open for buy and sell
-// 3. Execute the correct proposal with buy request when tapped on the button

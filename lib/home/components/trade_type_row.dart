@@ -6,11 +6,12 @@ class TradeTypeRow extends StatelessWidget {
   final String symbol;
   final VoidCallback onPressed;
 
-  TradeTypeRow({
+  const TradeTypeRow({
+    Key? key,
     required this.symbol,
     required this.title,
     required this.onPressed,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +29,9 @@ class TradeTypeRow extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: PriceComponent(
-              symbol: symbol,
-            ),
+            child: PriceComponent(symbol: symbol),
           ),
-          Icon(Icons.chevron_right)
+          const Icon(Icons.chevron_right)
         ],
       ),
     );

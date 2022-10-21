@@ -1,5 +1,4 @@
 import 'package:deriv_lite/home/home_page.dart';
-import 'package:deriv_lite/main.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -26,13 +25,10 @@ class LoginPage extends StatelessWidget {
                     color: Colors.white),
               ),
             ),
-
-            //spacing between header
             Container(
               height: 60,
             ),
 
-            //email
             const Text(
               'EMAIL',
               style: TextStyle(color: Colors.white),
@@ -51,7 +47,6 @@ class LoginPage extends StatelessWidget {
               height: 16,
             ),
 
-            //password
             const Text(
               'PASSWORD',
               style: TextStyle(color: Colors.white),
@@ -70,7 +65,6 @@ class LoginPage extends StatelessWidget {
               height: 16,
             ),
 
-            //button
             MaterialButton(
               onPressed: () {
                 Navigator.of(context).push(

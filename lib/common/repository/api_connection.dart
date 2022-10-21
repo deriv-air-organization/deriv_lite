@@ -11,7 +11,7 @@ class ApiConnection {
   final StreamController _streamController = StreamController.broadcast();
   Stream get stream => _streamController.stream;
 
-  String _webSocketUrl = 'wss://ws.binaryws.com/websockets/v3?app_id=1089';
+  String _webSocketUrl = 'wss://ws.binaryws.com/websockets/v3?app_id=16929';
 
   // This stores the count of subscription per id
   // This is done so that we are not subscribing to the same symbol
