@@ -17,6 +17,8 @@ class PriceComponent extends StatefulWidget {
 
 class _PriceComponentState extends State<PriceComponent> {
   String price = '';
+  Tick? lastTick;
+  Tick? currentTick;
 
   @override
   void initState() {
@@ -35,6 +37,8 @@ class _PriceComponentState extends State<PriceComponent> {
         if (mounted) {
           setState(() {
             price = tick.quote.toString();
+            lastTick = currentTick;
+            currentTick = tick;
           });
         }
       }
@@ -45,9 +49,37 @@ class _PriceComponentState extends State<PriceComponent> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      price,
-      style: widget.style,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        getIcon(),
+        Text(
+          currentTick?.quote.toString() ?? '--',
+          style: TextStyle(color: getColor(), fontSize: 14),
+        ),
+      ],
     );
+  }
+
+  Color getColor() {
+    if (lastTick?.quote == currentTick?.quote) return Colors.grey;
+    return (lastTick?.quote ?? 0) > (currentTick?.quote ?? 0)
+        ? Colors.red
+        : Colors.green;
+  }
+
+  Icon getIcon() {
+    if (lastTick?.quote == currentTick?.quote) {
+      return const Icon(Icons.arrow_drop_down);
+    }
+    return (lastTick?.quote ?? 0) > (currentTick?.quote ?? 0)
+        ? const Icon(
+            Icons.arrow_drop_down,
+            color: Colors.red,
+          )
+        : const Icon(
+            Icons.arrow_drop_up,
+            color: Colors.green,
+          );
   }
 }

@@ -16,12 +16,28 @@ class _TabsPageState extends State<TabsPage> {
       length: 2,
       child: Scaffold(
         bottomNavigationBar: Container(
-          color: Colors.red,
-          child: const SafeArea(
+          color: Color.fromARGB(255, 48, 48, 48),
+          child: SafeArea(
             child: TabBar(
               tabs: [
-                Tab(text: 'Trade'),
-                Tab(text: 'Transactions'),
+                Tab(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.show_chart),
+                    Padding(padding: EdgeInsets.only(left: 16)),
+                    Text("Trade"),
+                  ],
+                )),
+                Tab(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.assured_workload),
+                    Padding(padding: EdgeInsets.only(left: 16)),
+                    Text("Transactions"),
+                  ],
+                )),
               ],
             ),
           ),
