@@ -1,6 +1,5 @@
 import 'package:deriv_lite/home/components/trade_type_list.dart';
 import 'package:flutter/material.dart';
-import '../common/models/market_model.dart';
 import '../common/models/symbol_model.dart';
 import '../common/repository/symbols_repo.dart';
 
@@ -33,7 +32,6 @@ class _DerivHomeState extends State<DerivHome> {
   @override
   Widget build(BuildContext context) {
     final markets = Set<Market>.from(symbols.map((e) => e.market)).toList();
-
     return DefaultTabController(
       length: markets.length,
       initialIndex: 0,
