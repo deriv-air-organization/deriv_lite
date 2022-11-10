@@ -6,7 +6,7 @@ class CustomTheme {
       listTileTheme: ThemeData.dark().listTileTheme.copyWith(
             iconColor: Colors.white,
           ),
-      primarySwatch: Colors.red,
+      //primarySwatch: const Colors.yellow[700],
       scaffoldBackgroundColor: Colors.black,
       textTheme: ThemeData.dark().textTheme,
       iconTheme: ThemeData.dark().iconTheme,
@@ -14,11 +14,8 @@ class CustomTheme {
       tabBarTheme: const TabBarTheme(
         indicatorSize: TabBarIndicatorSize.label,
         labelColor: Colors.white,
-        indicator: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: Colors.white, width: 2),
-          ),
-        ),
+        indicator: BoxDecoration(),
+        unselectedLabelColor: Color.fromARGB(255, 109, 107, 107),
       ),
     );
   }

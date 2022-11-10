@@ -44,7 +44,8 @@ class _OpenPostionCardState extends State<OpenPostionCard> {
 
   @override
   Widget build(BuildContext context) {
-    if (openTransactionData == null) {
+    if (openTransactionData == null ||
+        openTransactionData['status'] != 'open') {
       return Container();
     }
     double indicativePrice =
@@ -101,6 +102,14 @@ class _OpenPostionCardState extends State<OpenPostionCard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
+              Row(
+                children: [
+                  const Text('Buy Price:   ',
+                      style: TextStyle(
+                          color: Colors.grey, fontWeight: FontWeight.bold)),
+                  Text(openTransactionData['payout'].toString()),
+                ],
+              ),
               Row(
                 children: [
                   const Text('P/L:   ',

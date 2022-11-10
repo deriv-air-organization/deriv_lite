@@ -20,18 +20,19 @@ class TradeTypeRow extends StatelessWidget {
       title: Row(
         children: <Widget>[
           const Padding(
-            padding: EdgeInsets.only(left: 16, bottom: 50),
+            padding: EdgeInsets.only(left: 16, bottom: 40),
           ),
           Expanded(
             child: Text(
               title,
               textAlign: TextAlign.start,
+              style: TextStyle(fontSize: 14),
             ),
           ),
           Expanded(
             child: PriceComponent(symbol: symbol),
           ),
-          const Icon(Icons.chevron_right)
+          const Icon(Icons.chevron_right_outlined)
         ],
       ),
     );

@@ -29,6 +29,7 @@ class _TransactionState extends State<Transaction> {
       }
 
       if (decodedString['msg_type'] == 'transaction') {
+        print(decodedString);
         final transaction = decodedString['transaction'];
         final action = transaction['action'];
 
@@ -42,13 +43,17 @@ class _TransactionState extends State<Transaction> {
       }
 
       if (decodedString['msg_type'] == 'portfolio') {
-        final List contracts = decodedString['portfolio']['contracts'];
-        for (var element in contracts) {
-          final id = element['contract_id'];
-          if (id != null && !openContractList.contains(id)) {
-            openContractList.add(id);
+        if (decodedString['portfolio']['contracts'] != null) {
+          final List contracts = decodedString['portfolio']['contracts'];
+
+          for (var element in contracts) {
+            final id = element['contract_id'];
+            if (id != null && !openContractList.contains(id)) {
+              openContractList.add(id);
+            }
           }
-        }
+        } else
+          return;
       }
       if (mounted) {
         setState(() {});
