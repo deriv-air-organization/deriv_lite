@@ -29,9 +29,11 @@ class _TransactionState extends State<Transaction> {
       }
 
       if (decodedString['msg_type'] == 'transaction') {
-        print(decodedString);
+        //print(decodedString);
         final transaction = decodedString['transaction'];
         final action = transaction['action'];
+        final market_display_name = transaction['display_name'];
+        print(market_display_name);
 
         if (action != null) {
           final contractId = decodedString['transaction']['contract_id'];

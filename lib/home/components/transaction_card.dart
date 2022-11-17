@@ -23,13 +23,20 @@ class TransactionCard extends StatelessWidget {
               Chip(
                 label: Text(transactionData['action_type'].toUpperCase()),
                 backgroundColor: transactionData['action_type'] == 'buy'
-                    ? Colors.green
-                    : Colors.red,
+                    ? Color.fromARGB(255, 99, 186, 102)
+                    : Color.fromARGB(255, 226, 90, 81),
               ),
+              //Row(
+              //  children: [
+              //    const Text('P/L:   ', style: TextStyle(color: Colors.grey)),
+              //    Text(transactionData['amount'].toString()),
+              //  ],
+              //),
               Row(
                 children: [
-                  const Text('P/L:   ', style: TextStyle(color: Colors.grey)),
-                  Text(transactionData['amount'].toString()),
+                  const Text('Buy Price:   ',
+                      style: TextStyle(color: Colors.grey)),
+                  Text(transactionData['payout'].toString()),
                 ],
               ),
             ],
@@ -50,12 +57,23 @@ class TransactionCard extends StatelessWidget {
               ),
               Row(
                 children: [
-                  const Text('Transaction id:   ',
+                  const Text('Contract Id:   ',
                       style: TextStyle(
                           color: Colors.grey, fontWeight: FontWeight.bold)),
-                  Text(transactionData['transaction_id'].toString()),
+                  Text(transactionData['contract_id'].toString()),
                 ],
               ),
+            ],
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          Row(
+            children: [
+              const Text('Transaction Id:   ',
+                  style: TextStyle(
+                      color: Colors.grey, fontWeight: FontWeight.bold)),
+              Text(transactionData['transaction_id'].toString()),
             ],
           ),
         ],

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Deriv Air',
       theme: CustomTheme.light,
-      home: const TabsPage(),
+      home: const LoginPage(),
     );
   }
 }

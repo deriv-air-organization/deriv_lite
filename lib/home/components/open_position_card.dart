@@ -67,7 +67,7 @@ class _OpenPostionCardState extends State<OpenPostionCard> {
               Text(openTransactionData['display_name']),
               Row(
                 children: [
-                  const Text('contract Id:',
+                  const Text('Contract Id:',
                       style: TextStyle(
                           color: Colors.grey, fontWeight: FontWeight.bold)),
                   Text(openTransactionData['contract_id'].toString()),

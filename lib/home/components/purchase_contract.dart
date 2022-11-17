@@ -93,10 +93,6 @@ class _PurchaseContractState extends State<PurchaseContract> {
                   color: Color.fromARGB(255, 241, 246, 242),
                 ),
               ),
-              const Text(
-                "+0.66%",
-                style: TextStyle(fontSize: 16, color: Colors.green),
-              ),
               const SizedBox(height: 8),
               const Padding(
                 padding: EdgeInsets.only(top: 10),

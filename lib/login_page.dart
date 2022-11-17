@@ -1,4 +1,5 @@
 import 'package:deriv_lite/home/home_page.dart';
+import 'package:deriv_lite/tabs_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -18,7 +19,7 @@ class LoginPage extends StatelessWidget {
             const Align(
               alignment: Alignment.center,
               child: Text(
-                'LOGIN',
+                'Deriv Air',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
@@ -68,7 +69,7 @@ class LoginPage extends StatelessWidget {
             MaterialButton(
               onPressed: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: ((context) => DerivHome())));
+                    MaterialPageRoute(builder: ((context) => TabsPage())));
               },
               child: const Text('Login'),
               color: Colors.red,
